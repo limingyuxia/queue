@@ -22,6 +22,11 @@ int main()
 
     queueTravel(qu);
 
+    dataType data;
+    deQueue(qu, &data);
+    printf("deQueue: %d\n", data);
+    queueTravel(qu);
+
     queueDestroy(qu);
 
     return 0;

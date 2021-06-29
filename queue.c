@@ -30,7 +30,7 @@ int queueIsempty(queue *qu)
 // 遍历队列
 int queueTravel(queue *qu)
 {
-    if (queueIsempty(qu) == 1)
+    if (queueIsempty(qu))
     {
         // 队列为空
         return 0;
@@ -51,7 +51,7 @@ int queueTravel(queue *qu)
 // 入队
 int enQueue(queue *qu, dataType *data)
 {
-    // 元素入在队尾
+    // 元素入在队尾 队头所在的位置不存放元素
     if ((qu->tail + 1) % MAXSIZE == qu->head)
     {
         // 队列已满
@@ -69,12 +69,20 @@ int enQueue(queue *qu, dataType *data)
 // 出队
 int deQueue(queue *qu, dataType *data)
 {
+    if (queueIsempty(qu))
+        return -1;
+
+    qu->head = (qu->head + 1) % MAXSIZE;
+    *data = qu->data[qu->head];
+
     return 0;
 }
 
 // 清除队列元素
 int clearQueue(queue *qu)
 {
+    qu->head = qu->tail;
+
     return 0;
 }
 
